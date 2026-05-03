@@ -7,7 +7,7 @@ set -e
 CONTAINER_NAME="olcrtc-server"
 IMAGE_NAME="docker.io/library/golang:1.26-alpine"
 REPO_URL="https://github.com/openlibrecommunity/olcrtc.git"
-WORK_DIR="/tmp/olcrtc-deploy"
+WORK_DIR="/opt/olcrtc-deploy"
 BRANCH="master"
 
 while [[ $# -gt 0 ]]; do
@@ -315,6 +315,7 @@ fi
 echo "[*] Starting OlcRTC server..."
 podman run -d \
     --name $CONTAINER_NAME \
+    --network=host \
     --restart unless-stopped \
     -v $WORK_DIR:/app:Z \
     -w /app \
